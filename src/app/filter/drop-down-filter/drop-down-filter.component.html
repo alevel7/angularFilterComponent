@@ -1,0 +1,13 @@
+<div class="container">
+
+  <div class="search-area">
+    <div class="search-bar">
+      <input type="text" placeholder="search" id="" (input)="search($event)" [formControl]="inputValue">
+      <mat-icon *ngIf="!searchValue">expand_less</mat-icon>
+      <mat-icon *ngIf="searchValue">expand_more</mat-icon>
+    </div>
+    <ul>
+      <li *ngFor="let word of foundWords" (click)="setSelectedWord(word)">{{ word | titlecase}}</li>
+    </ul>
+  </div>
+</div>
