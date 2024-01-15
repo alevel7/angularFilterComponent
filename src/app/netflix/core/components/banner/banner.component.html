@@ -1,0 +1,18 @@
+<iframe [src]="videoUrl"  frameborder="0" class="w-full h-full absolute"></iframe>
+
+<div class="h-screen bg-white">
+  <div class="absolute text-white px-24 pt-[20%] bg-gradient-to-r from-black h-full">
+    <h1 class="text-6xl font-bold">{{bannerTitle}}</h1>
+    <p class="inline-block py-6 text-xl w-1/4 flex-wrap">{{bannerOverview}}</p>
+    <div class="flex">
+      <button
+        class="bg-white text-black py-4 px-8 text-xl rounded-lg flex items-center hover:bg-opacity-50 transition-[1s]">
+        <mat-icon>play_arrow</mat-icon>
+        play
+      </button>
+      <button class="mx-2 bg-gray-500 text-white px-12 py-4 text-lg rounded-lg bg-opacity-50">
+        more info
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<header class="bg-main bg-gray-950 h-[68px] z-10 sticky top-0 flex items-center justify-between px-10">
+<div class="flex gap-5">
+  <img src="/assets//pngwing.com.png" alt="" width="110">
+  <ul class="flex items-center gap-5">
+    <li class="text-neutral-200 cursor-pointer text-sm font-extralight hover:text-gray-600 transition-[1s]" *ngFor="let item of navlist">{{item | titlecase }}</li>
+  </ul>
+</div>
+
+<div class="text-white flex items-center gap-4">
+  <a href="/">
+    <span>Welcome  <strong>Taiwo</strong></span>
+  </a>
+  <img [src]="profileImage" alt="" srcset="" style="border-radius: 50%; width: 42px; height: 42px;">
+  &nbsp; | &nbsp;
+  <a href="http://localhost:4200">sign out</a>
+</div>
+</header>

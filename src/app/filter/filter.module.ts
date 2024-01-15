@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    DropDownFilterComponent
+    DropDownFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -18,7 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     StoreModule.forFeature('words', wordReducer),
     RouterModule.forChild([
-      { path: '', component: DropDownFilterComponent }
+      { path: '', component: DropDownFilterComponent },
     ]),
   ]
 })
