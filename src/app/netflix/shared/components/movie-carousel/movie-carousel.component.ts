@@ -1,7 +1,9 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import Swiper from 'swiper';
 import { VideoContent } from '../../models/video-content.interface';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
+import { MovieService } from 'src/app/netflix/core/services/movie.service';
 
 @Component({
   selector: 'app-movie-carousel',
@@ -22,7 +24,8 @@ export class MovieCarouselComponent implements OnInit, AfterViewInit {
   @Output() selectedMovie = new EventEmitter<VideoContent>();
   @ViewChild('swiperContainer') swiperContainer!: ElementRef;
   selectedContent: string | null | undefined;
-  constructor() { }
+
+  constructor(private router: Router, private movieService: MovieService) { }
   ngAfterViewInit(): void {
     this.initSwiper()
   }
@@ -33,44 +36,31 @@ export class MovieCarouselComponent implements OnInit, AfterViewInit {
   private initSwiper() {
     return new Swiper('.swiper-container', {
       slidesPerView: 3,
-      slidesPerGroup: 2,
-      centeredSlides: true,
-      parallax: true,
+      spaceBetween: 10,
+      // centeredSlides: true,
       loop: true,
-      breakpoints: {
-        600: {
-          slidesPerView: 2,
-          slidesPerGroup: 2,
-          spaceBetween: 5,
-          centeredSlides: true,
-        },
-        900: {
-          slidesPerView: 3,
-          slidesPerGroup: 3,
-          spaceBetween: 5,
-          centeredSlides: true,
-        },
-        1200: {
-          slidesPerView: 4,
-          slidesPerGroup: 4,
-          spaceBetween: 5,
-          centeredSlides: false,
-        },
-        1500: {
-          slidesPerView: 5,
-          slidesPerGroup: 5,
-          spaceBetween: 5,
-          centeredSlides: false,
-        },
-        1800: {
-          slidesPerView: 5,
-          slidesPerGroup: 6,
-          spaceBetween: 5,
-          centeredSlides: false,
-        }
-      }
-    })
-  }
+      // Responsive breakpoints
+     breakpoints: {
+       1024: {
+         slidesPerView: 6,
+         spaceBetween: 10
+       },
+       768: {
+         slidesPerView: 5,
+         spaceBetween: 10
+       },
+       640: {
+         slidesPerView: 4,
+         spaceBetween: 5
+       },
+       320: {
+         slidesPerView: 1,
+         spaceBetween: 10
+       }
+     }
+  })
+
+}
 
   setHoverMovie(movie: VideoContent) {
     this.selectedContent = movie.title ?? movie.name;
@@ -81,7 +71,9 @@ export class MovieCarouselComponent implements OnInit, AfterViewInit {
   }
 
   preview(movie:VideoContent) {
-    this.selectedMovie.emit(movie)
+    // this.selectedMovie.emit(movie)
+    this.movieService.storeSelectedMovie(movie)
+    this.router.navigate(['/movie-details', movie.id])
   }
 
 }

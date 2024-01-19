@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MovieCarouselComponent } from './shared/components/movie-carousel/movie-carousel.component';
 import { DescriptionPipe } from './shared/pipes/description.pipe';
 import { ImageTransformPipe } from './shared/pipes/image-transform.pipe';
+import { MovieDetailsComponent } from './pages/movie-details/movie-details.component';
 
 
 
@@ -19,7 +20,8 @@ import { ImageTransformPipe } from './shared/pipes/image-transform.pipe';
     BrowseComponent,
     MovieCarouselComponent,
     DescriptionPipe,
-    ImageTransformPipe
+    ImageTransformPipe,
+    MovieDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { ImageTransformPipe } from './shared/pipes/image-transform.pipe';
     HttpClientModule,
     RouterModule.forChild([
       { path: '', component: BrowseComponent },
+      { path: 'movie-details/:id', component: MovieDetailsComponent },
     ]),
   ]
 })

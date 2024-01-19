@@ -63,4 +63,11 @@ export class MovieService {
   getUpcomingMovies() {
     return this.http.get('https://api.themoviedb.org/3/movie/upcoming', options)
   }
+
+  storeSelectedMovie(movie: VideoContent): void {
+    localStorage.setItem('selectedMovie', JSON.stringify(movie))
+  }
+  retrieveSelectedMovie(): string {
+    return localStorage.getItem('selectedMovie') as string;
+  }
 }

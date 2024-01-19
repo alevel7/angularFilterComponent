@@ -43,7 +43,7 @@ export class BrowseComponent implements OnInit {
 
     forkJoin(this.sources)
       .pipe(
-        tap( (res: any) => console.log(res)),
+        tap( (res: any) => console.log('all data', res)),
         map(([movies, tvShows, ratedMovies, nowPlaying, upcoming, popular, topRated]) => {
           this.bannerDetailNotifier.next(movies.results[1].id);
           this.bannerVideoNotifier.next(movies.results[1].id);
@@ -62,10 +62,10 @@ export class BrowseComponent implements OnInit {
   }
 
   getMovieKey() {
-    this.movieService.getBannerVideo(this.movies[0].id)
-      .subscribe((res:any) => {
-        console.log(res);
-      })
+    // this.movieService.getBannerVideo(this.movies[0].id)
+    //   .subscribe((res:any) => {
+    //     // console.log(res);
+    //   })
   }
 
   preview(movie: VideoContent) {

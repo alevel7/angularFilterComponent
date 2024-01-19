@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,13 @@ export class HeaderComponent implements OnInit {
   profileImage!: string;
   navlist = ['home', 'tv shows', 'news and popular', 'movies', 'my list', 'kids', 'subscriptions', 'originals'];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToHome() {
+    this.router.navigateByUrl('/');
   }
 
 }
