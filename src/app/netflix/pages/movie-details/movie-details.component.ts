@@ -3,6 +3,7 @@ import { MovieService } from '../../core/services/movie.service';
 import { VideoContent, VideoLinks } from '../../shared/models/video-content.interface';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subject, forkJoin, map, switchMap, takeUntil, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -34,22 +35,28 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
   bannerVideo$ = this.bannerVideoNotifier.asObservable().pipe(
     switchMap((id) => this.movieService.getBannerVideo(id)),
   )
-  constructor(private movieService: MovieService, private sanitizer: DomSanitizer) { }
+  constructor(
+    private movieService: MovieService,
+    private sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute) { }
   ngOnDestroy(): void {
     this.destroy$.next()
   }
 
   ngOnInit(): void {
-   const data = this.movieService.retrieveSelectedMovie() as string;
-    this.movie = JSON.parse(data);
-    this.bannerVideoNotifier.next(this.movie.id);
-    this.bannerVideo$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((data: VideoLinks) => {
-        this.loading = false;
-        this.key = data.results[0].key;
-        this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.key}`) as string;
-      })
+    this.activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      const data = this.movieService.retrieveSelectedMovie() as string;
+      this.movie = JSON.parse(data);
+      this.bannerVideoNotifier.next(this.movie.id);
+      this.bannerVideo$
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((data: VideoLinks) => {
+          this.loading = false;
+          this.key = data.results[0].key;
+          this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.key}`) as string;
+        })
+    })
+
 
 
     forkJoin(this.sources)
