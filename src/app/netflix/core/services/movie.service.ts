@@ -33,7 +33,7 @@ export class MovieService {
   }
 
   getRatedMovies() {
-    return this.http.get('https://api.themoviedb.org/3/guest_session/guest_session_id/rated/movies', options)
+    return this.http.get('https://api.themoviedb.org/3/discover/movie', options)
   }
 
   getBannerImage(id: number) {
